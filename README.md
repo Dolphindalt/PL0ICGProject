@@ -1,4 +1,4 @@
-# CPSC 323 Project 2: Ad hoc PL/0 Parser
+# CPSC 323 Project 3: Intermediate Code Generation [PL/0 -> AST]
 
 ## Group Members
 
