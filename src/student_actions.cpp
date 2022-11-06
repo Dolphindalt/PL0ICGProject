@@ -11,7 +11,7 @@
 
 /**
  * A semantic action is a function that has the following prototype:
- * ASTNodePtr fuction(std::stack<AStNodePtr> &, const Production);
+ * ASTNodePtr fuction(std::stack<AStNodePtr> &, const Production, std::vector<std::string>);
  * Semantic actions should return nullptr if the result is unused, which is 
  * the case with "if statement" and "while loop" nodes. Otherwise, a result 
  * in the form of an ASTNodePtr is returned and will be pushed onto the 
