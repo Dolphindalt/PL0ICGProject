@@ -1,17 +1,15 @@
 program -> block .
 block -> const_declaration var_declaration proceduret statement
-const_declaration -> const ident = number const_declaration_list ;
+const_declaration -> const ident = number const_declaration_list
 const_declaration ->
 const_declaration_list -> , ident = number const_declaration_list
-const_declaration_list ->
-var_declaration -> var ident var_declaration_list ;
+const_declaration_list -> ;
+var_declaration -> var ident var_declaration_list
 var_declaration ->
 var_declaration_list -> , ident var_declaration_list
-var_declaration_list ->
-proceduret -> procedure ident ; block ; procedure_tail
+var_declaration_list -> ;
+proceduret -> proceduret procedure ident ; block ;
 proceduret ->
-procedure_tail -> procedure ident ; block ; procedure_tail
-procedure_tail ->
 statement -> ident := expression
 statement -> call ident
 statement -> ? ident
@@ -20,7 +18,7 @@ statement -> begin statement statement_tail end
 statement -> if condition then statement
 statement -> while condition do statement
 statement ->
-statement_tail -> ; statement statement_tail
+statement_tail -> statement_tail ; statement
 statement_tail ->
 condition -> odd expression
 condition -> expression = expression
@@ -29,16 +27,14 @@ condition -> expression < expression
 condition -> expression <= expression
 condition -> expression > expression
 condition -> expression >= expression
-expression -> + term expression_tail
-expression -> - term expression_tail
-expression -> term expression_tail
-expression_tail -> + term expression_tail
-expression_tail -> - term expression_tail
-expression_tail ->
-term -> factor term_tail
-term_tail -> * factor term_tail
-term_tail -> / factor term_tail
-term_tail ->
+expression -> + term
+expression -> - term
+expression -> term + term
+expression -> term - term
+expression -> term
+term -> factor
+term -> factor * factor
+term -> factor / factor
 factor -> ident
 factor -> number
 factor -> ( expression )

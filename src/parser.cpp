@@ -84,7 +84,8 @@ ASTNodePtr Parser::parse() {
 
                 std::vector<Symbol> poppedSymbols;
 
-                while (rulesToPopLen-- != 0) {
+                while (rulesToPopLen != 0) {
+                    rulesToPopLen--;
                     ASSERT(!stateStack.empty());
                     ASSERT(!symbolStack.empty());
 
@@ -117,10 +118,11 @@ ASTNodePtr Parser::parse() {
                 );
                 #endif
 
-                if (nextState.action != GOTO) {
+                if (nextState.action != GOTO || nextState.number == 0) {
                     ERROR_LOG(
-                        "expected a goto action, got %s",
-                        lrActionToStringMap.at(nextState.action).c_str()
+                        "got an invalid goto action, %s with state %d",
+                        lrActionToStringMap.at(nextState.action).c_str(),
+                        nextState.number
                     );
                     exit(EXIT_FAILURE);
                 }
@@ -166,12 +168,11 @@ ASTNodePtr Parser::parse() {
     // If you did not implement the semantic actions yet, this assertion will
     // fail. This assertion is included because an empty stack will trigger 
     // a segmentation fault.
-    //ASSERT(semanticStack.size() >= 1);
+    ASSERT(semanticStack.size() >= 1);
 
     // The element left on top of the stack is presumed to be the root
     // of the abstract syntax tree.
-    //return semanticStack.top();
-    return nullptr;
+    return semanticStack.top();
 }
 
 token_t Parser::getNextToken() {
